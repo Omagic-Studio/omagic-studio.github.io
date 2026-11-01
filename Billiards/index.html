@@ -1,9 +1,236 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Omagic Studio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play 8-ball, 9-ball and carom under the lights, wherever you are.">
+    <meta name="keywords" content="Lamplight Billiards, pool, 8 ball, 9 ball, carom, three cushion, Omagic Studio">
+    <meta name="author" content="Omagic Studio">
+    <meta name="theme-color" content="#0d1712">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lamplight Billiards: Pool">
+    <meta property="og:description" content="Play 8-ball, 9-ball and carom under the lights, wherever you are.">
+    <meta property="og:url" content="https://omagic-studio.github.io/Billiards/">
+    <meta property="og:image" content="https://omagic-studio.github.io/Billiards/images/banner.webp">
+    <link rel="icon" href="images/icon.webp" type="image/webp">
+    <title>Lamplight Billiards: Pool | Omagic Studio</title>
+    <style>
+        :root {
+            --bg: #0d1712;
+            --card: #15261d;
+            --line: #25402f;
+            --accent: #f2c14e;
+            --accent-2: #6fd39b;
+            --text: #f3f6fb;
+            --muted: #c3cbd8;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+        header {
+            position: relative;
+            overflow: hidden;
+            padding: 64px 20px 72px;
+            text-align: center;
+            background: linear-gradient(135deg, #0b3d26 0%, #146b43 55%, #f2c14e 140%);
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("images/banner.webp") center / cover no-repeat;
+            filter: blur(14px) saturate(1.2);
+            transform: scale(1.15);
+            opacity: .45;
+        }
+        header::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 40%, var(--bg) 100%);
+        }
+        .hero { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        .app-icon {
+            width: 128px;
+            height: 128px;
+            border-radius: 28px;
+            box-shadow: 0 14px 40px rgba(0,0,0,.45);
+        }
+        header h1 { margin: 22px auto 10px; font-size: clamp(2.1rem, 6vw, 3.4rem); line-height: 1.15; text-shadow: 0 3px 16px rgba(0,0,0,.4); }
+        header p { max-width: 680px; margin: 0 auto; font-size: 1.15rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.45); }
+        .tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
+        .tags li {
+            padding: 4px 14px;
+            border: 1px solid rgba(255,255,255,.35);
+            border-radius: 999px;
+            background: rgba(0,0,0,.25);
+            font-size: .85rem;
+            font-weight: 600;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 14px 26px;
+            border-radius: 12px;
+            color: #14171f;
+            background: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,.35);
+            transition: transform .15s ease, filter .15s ease;
+        }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-soon { color: var(--text); background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.4); box-shadow: none; cursor: default; }
+        .btn-soon:hover { transform: none; filter: none; }
+        main { width: min(100% - 32px, 980px); margin: 8px auto 50px; }
+        .card {
+            margin: 20px 0;
+            padding: 26px 30px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--card);
+        }
+        h2 { margin: 0 0 14px; color: var(--accent); font-size: 1.45rem; }
+        p { margin: 0 0 12px; }
+        p:last-child { margin-bottom: 0; }
+        .gallery {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: min(78%, 420px);
+            gap: 14px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scroll-snap-type: x mandatory;
+            scrollbar-color: var(--line) transparent;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            scroll-snap-align: start;
+        }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+        .feature {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid var(--line);
+        }
+        .feature-icon {
+            flex: 0 0 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(255,255,255,.08);
+            font-size: 1.4rem;
+        }
+        .feature h3 { margin: 0 0 4px; font-size: 1.02rem; color: var(--accent-2); }
+        .feature p { margin: 0; color: var(--muted); font-size: .95rem; }
+        .steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+        .steps li { position: relative; padding: 4px 0 4px 46px; counter-increment: step; }
+        .steps li + li { margin-top: 10px; }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #14171f;
+            background: var(--accent);
+            font-weight: 700;
+        }
+        a { color: var(--accent-2); }
+        a:focus-visible, .btn:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+        footer { padding: 0 20px 32px; text-align: center; color: var(--muted); font-size: .92rem; }
+        @media (max-width: 600px) {
+            header { padding: 48px 16px 56px; }
+            .app-icon { width: 104px; height: 104px; border-radius: 24px; }
+            .card { padding: 22px 18px; }
+            main { width: calc(100% - 32px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .btn { transition: none; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Omagic Studio</h1>
+    <header>
+        <div class="hero">
+            <img class="app-icon" src="images/icon.webp" width="256" height="256" alt="Lamplight Billiards: Pool app icon">
+            <h1>Lamplight Billiards: Pool</h1>
+            <p>Play 8-ball, 9-ball and carom under the lights, wherever you are.</p>
+            <ul class="tags"><li>Billiards</li><li>Pool</li><li>Sports</li><li>Offline</li></ul>
+            <span class="btn btn-soon" aria-disabled="true">Coming soon to Google Play</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="card" aria-labelledby="about">
+            <h2 id="about">🎱 About the Game</h2>
+            <p>Lamplight Billiards brings the feel of a late-night billiards club to your phone, with satisfying ball physics and room to master every angle. Learn the rails, plan your position and make the next shot count.</p>
+        </section>
+
+        <section class="card" aria-labelledby="screens">
+            <h2 id="screens">Screenshots</h2>
+            <div class="gallery">
+            <img src="images/screenshot_1.webp" width="960" height="540" loading="lazy" alt="Lamplight Billiards: Pool screenshot 1">
+            <img src="images/screenshot_2.webp" width="960" height="540" loading="lazy" alt="Lamplight Billiards: Pool screenshot 2">
+            <img src="images/screenshot_3.webp" width="960" height="540" loading="lazy" alt="Lamplight Billiards: Pool screenshot 3">
+            <img src="images/screenshot_4.webp" width="960" height="540" loading="lazy" alt="Lamplight Billiards: Pool screenshot 4">
+            <img src="images/screenshot_5.webp" width="960" height="540" loading="lazy" alt="Lamplight Billiards: Pool screenshot 5">
+            <img src="images/screenshot_6.webp" width="960" height="540" loading="lazy" alt="Lamplight Billiards: Pool screenshot 6">
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="features">
+            <h2 id="features">Features</h2>
+            <div class="features">
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🎱</span><div><h3>8-ball &amp; 9-ball</h3><p>Classic pool rules with smooth, realistic ball physics.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🟡</span><div><h3>Carom &amp; three-cushion</h3><p>A whole new challenge for players who love angles.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🌍</span><div><h3>World Tour</h3><p>Travel from city to city and take on local champions.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🧩</span><div><h3>Shot Puzzles</h3><p>Crack tricky positions and earn 3 stars.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">👥</span><div><h3>Play with a friend</h3><p>Pass-and-play on one device, or a quick match vs. the computer.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">📶</span><div><h3>Play offline</h3><p>Practice mode and every table work without a connection.</p></div></div>
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="how">
+            <h2 id="how">How to Play</h2>
+            <ol class="steps">
+                <li>Drag to aim, then pull back to set your power.</li>
+                <li>Add spin to control where the cue ball stops.</li>
+                <li>Pot your balls in order and win the frame.</li>
+            </ol>
+        </section>
+
+        <section class="card" aria-labelledby="contact">
+            <h2 id="contact">Support &amp; Contact</h2>
+            <p>Questions, feedback or ideas? We would love to hear from you.</p>
+            <p>Email: <a href="mailto:omagicstudio.official@gmail.com">omagicstudio.official@gmail.com</a></p>
+        </section>
+
+        <section class="card" aria-labelledby="privacy">
+            <h2 id="privacy">Privacy Policy</h2>
+            <p>Learn how this app handles data by reading our Privacy Policy.</p>
+            <p><a href="https://omagic-studio.github.io/Billiards/privacy-policy.html" target="_blank" rel="noopener noreferrer">View Privacy Policy →</a></p>
+        </section>
+    </main>
+
+    <footer>&copy; 2026 Omagic Studio. All rights reserved. · <a href="https://omagic-studio.github.io/Billiards/privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></footer>
 </body>
 </html>
