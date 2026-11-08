@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free every cord to reveal a picture. A calm rope puzzle with folk art.">
+    <meta name="keywords" content="Knot Gallery, rope puzzle, untangle, cord puzzle, arrow puzzle, logic puzzle, picture puzzle, Omagic Studio">
+    <meta name="author" content="Omagic Studio">
+    <meta name="theme-color" content="#1b1530">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Knot Gallery: Rope Puzzle">
+    <meta property="og:description" content="Free every cord to reveal a picture. A calm rope puzzle with folk art.">
+    <meta property="og:url" content="https://omagic-studio.github.io/KnotGallery/">
+    <meta property="og:image" content="https://omagic-studio.github.io/KnotGallery/images/banner.webp">
+    <link rel="icon" href="images/icon.webp" type="image/webp">
+    <title>Knot Gallery: Rope Puzzle | Omagic Studio</title>
+    <style>
+        :root {
+            --bg: #1b1530;
+            --card: #2a2145;
+            --line: #4a3b6e;
+            --accent: #ffb547;
+            --accent-2: #f6c98a;
+            --text: #f7f3ff;
+            --muted: #d9d2ea;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+        header {
+            position: relative;
+            overflow: hidden;
+            padding: 64px 20px 72px;
+            text-align: center;
+            background: linear-gradient(135deg, #2b1f4a 0%, #6d4bb3 55%, #ffb547 140%);
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("images/banner.webp") center / cover no-repeat;
+            filter: blur(14px) saturate(1.2);
+            transform: scale(1.15);
+            opacity: .45;
+        }
+        header::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 40%, var(--bg) 100%);
+        }
+        .hero { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        .app-icon {
+            width: 128px;
+            height: 128px;
+            border-radius: 28px;
+            box-shadow: 0 14px 40px rgba(0,0,0,.45);
+        }
+        header h1 { margin: 22px auto 10px; font-size: clamp(2.1rem, 6vw, 3.4rem); line-height: 1.15; text-shadow: 0 3px 16px rgba(0,0,0,.4); }
+        header p { max-width: 680px; margin: 0 auto; font-size: 1.15rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.45); }
+        .tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
+        .tags li {
+            padding: 4px 14px;
+            border: 1px solid rgba(255,255,255,.35);
+            border-radius: 999px;
+            background: rgba(0,0,0,.25);
+            font-size: .85rem;
+            font-weight: 600;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 14px 26px;
+            border-radius: 12px;
+            color: #14171f;
+            background: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,.35);
+            transition: transform .15s ease, filter .15s ease;
+        }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-soon { color: var(--text); background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.4); box-shadow: none; cursor: default; }
+        .btn-soon:hover { transform: none; filter: none; }
+        main { width: min(100% - 32px, 980px); margin: 8px auto 50px; }
+        .card {
+            margin: 20px 0;
+            padding: 26px 30px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--card);
+        }
+        h2 { margin: 0 0 14px; color: var(--accent); font-size: 1.45rem; }
+        p { margin: 0 0 12px; }
+        p:last-child { margin-bottom: 0; }
+        .gallery {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: min(46%, 240px);
+            gap: 14px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scroll-snap-type: x mandatory;
+            scrollbar-color: var(--line) transparent;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            scroll-snap-align: start;
+        }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+        .feature {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid var(--line);
+        }
+        .feature-icon {
+            flex: 0 0 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(255,255,255,.08);
+            font-size: 1.4rem;
+        }
+        .feature h3 { margin: 0 0 4px; font-size: 1.02rem; color: var(--accent-2); }
+        .feature p { margin: 0; color: var(--muted); font-size: .95rem; }
+        .steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+        .steps li { position: relative; padding: 4px 0 4px 46px; counter-increment: step; }
+        .steps li + li { margin-top: 10px; }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #14171f;
+            background: var(--accent);
+            font-weight: 700;
+        }
+        a { color: var(--accent-2); }
+        a:focus-visible, .btn:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+        footer { padding: 0 20px 32px; text-align: center; color: var(--muted); font-size: .92rem; }
+        @media (max-width: 600px) {
+            header { padding: 48px 16px 56px; }
+            .app-icon { width: 104px; height: 104px; border-radius: 24px; }
+            .card { padding: 22px 18px; }
+            main { width: calc(100% - 32px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .btn { transition: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <img class="app-icon" src="images/icon.webp" width="256" height="256" alt="Knot Gallery: Rope Puzzle app icon">
+            <h1>Knot Gallery: Rope Puzzle</h1>
+            <p>Free every cord to reveal a picture. A calm rope puzzle with folk art.</p>
+            <ul class="tags"><li>Puzzle</li><li>Logic</li><li>Relaxing</li><li>Folk art</li><li>Daily challenge</li></ul>
+            <span class="btn btn-soon" aria-disabled="true">Coming soon to Google Play</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="card" aria-labelledby="about">
+            <h2 id="about">About the Game</h2>
+            <p>Tap a cord and it slides out the way its arrow points. Clear every cord in the right order and a hand-painted picture appears beneath them.</p>
+            <p>Knot Gallery is a calm logic puzzle with braided cords, simple rules and no timer. Four chapters of illustrated Vietnamese folk pictures wait in your Picture Album.</p>
+        </section>
+
+
+        <section class="card" aria-labelledby="features">
+            <h2 id="features">Features</h2>
+            <div class="features">
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🧶</span><div><h3>Simple to learn</h3><p>Tap a cord to slide it out along its arrow. Blocked cords bounce back, so clear the way first.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🖼</span><div><h3>A picture in every level</h3><p>48 illustrated pictures in 4 chapters, each with a short folk story.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🧠</span><div><h3>Classic & Daily</h3><p>Hundreds of Classic levels plus a new Daily Challenge every day.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">💡</span><div><h3>Hints & Undo</h3><p>Light up a cord you can free, or put the last cord back.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🎨</span><div><h3>Styles</h3><p>Trade coils for cord styles and boards: jute, silk ribbon, beads, jade, lacquer and more.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🌏</span><div><h3>5 languages</h3><p>English, Tiếng Việt, Deutsch, Español and Português.</p></div></div>
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="how">
+            <h2 id="how">How to Play</h2>
+            <ol class="steps">
+                <li>Tap a cord: it slides out the way its arrow points.</li>
+                <li>If something blocks the path, the cord bounces back and you lose a heart.</li>
+                <li>Clear every cord to reveal the picture and add it to your album.</li>
+            </ol>
+        </section>
+
+        <section class="card" aria-labelledby="contact">
+            <h2 id="contact">Support &amp; Contact</h2>
+            <p>Questions, feedback or ideas? We would love to hear from you.</p>
+            <p>Email: <a href="mailto:omagicstudio.official@gmail.com">omagicstudio.official@gmail.com</a></p>
+        </section>
+
+        <section class="card" aria-labelledby="privacy">
+            <h2 id="privacy">Privacy Policy</h2>
+            <p>Learn how this app handles data by reading our Privacy Policy.</p>
+            <p><a href="https://omagic-studio.github.io/KnotGallery/privacy-policy.html" target="_blank" rel="noopener noreferrer">View Privacy Policy →</a></p>
+        </section>
+    </main>
+
+    <footer>&copy; 2026 Omagic Studio. All rights reserved. · <a href="https://omagic-studio.github.io/KnotGallery/privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></footer>
+</body>
+</html>
