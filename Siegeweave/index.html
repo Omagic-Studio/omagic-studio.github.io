@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wall the road. Send your squads. Capture the towers. A cozy maze tower defense and siege strategy game.">
+    <meta name="keywords" content="Siegeweave, tower defense, maze, siege strategy, tower capture, tabletop strategy, toy soldier, Omagic Studio">
+    <meta name="author" content="Omagic Studio">
+    <meta name="theme-color" content="#13201c">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Siegeweave: Tower Tactics">
+    <meta property="og:description" content="Wall the road. Send your squads. Capture the towers. A cozy maze tower defense and siege strategy game.">
+    <meta property="og:url" content="https://omagic-studio.github.io/Siegeweave/">
+    <meta property="og:image" content="https://omagic-studio.github.io/Siegeweave/images/banner.webp">
+    <link rel="icon" href="images/icon.webp" type="image/webp">
+    <title>Siegeweave: Tower Tactics | Omagic Studio</title>
+    <style>
+        :root {
+            --bg: #13201c;
+            --card: #1c2d28;
+            --line: #35524a;
+            --accent: #f2b84b;
+            --accent-2: #8fd6c4;
+            --text: #f6f1e6;
+            --muted: #d5d9cf;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+        header {
+            position: relative;
+            overflow: hidden;
+            padding: 64px 20px 72px;
+            text-align: center;
+            background: linear-gradient(135deg, #12332c 0%, #2f7a6a 55%, #f2b84b 140%);
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("images/banner.webp") center / cover no-repeat;
+            filter: blur(14px) saturate(1.2);
+            transform: scale(1.15);
+            opacity: .45;
+        }
+        header::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 40%, var(--bg) 100%);
+        }
+        .hero { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        .app-icon {
+            width: 128px;
+            height: 128px;
+            border-radius: 28px;
+            box-shadow: 0 14px 40px rgba(0,0,0,.45);
+        }
+        header h1 { margin: 22px auto 10px; font-size: clamp(2.1rem, 6vw, 3.4rem); line-height: 1.15; text-shadow: 0 3px 16px rgba(0,0,0,.4); }
+        header p { max-width: 680px; margin: 0 auto; font-size: 1.15rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.45); }
+        .tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
+        .tags li {
+            padding: 4px 14px;
+            border: 1px solid rgba(255,255,255,.35);
+            border-radius: 999px;
+            background: rgba(0,0,0,.25);
+            font-size: .85rem;
+            font-weight: 600;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 14px 26px;
+            border-radius: 12px;
+            color: #14171f;
+            background: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,.35);
+            transition: transform .15s ease, filter .15s ease;
+        }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-soon { color: var(--text); background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.4); box-shadow: none; cursor: default; }
+        .btn-soon:hover { transform: none; filter: none; }
+        main { width: min(100% - 32px, 980px); margin: 8px auto 50px; }
+        .card {
+            margin: 20px 0;
+            padding: 26px 30px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--card);
+        }
+        h2 { margin: 0 0 14px; color: var(--accent); font-size: 1.45rem; }
+        p { margin: 0 0 12px; }
+        p:last-child { margin-bottom: 0; }
+        .gallery {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: min(46%, 240px);
+            gap: 14px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scroll-snap-type: x mandatory;
+            scrollbar-color: var(--line) transparent;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            scroll-snap-align: start;
+        }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+        .feature {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid var(--line);
+        }
+        .feature-icon {
+            flex: 0 0 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(255,255,255,.08);
+            font-size: 1.4rem;
+        }
+        .feature h3 { margin: 0 0 4px; font-size: 1.02rem; color: var(--accent-2); }
+        .feature p { margin: 0; color: var(--muted); font-size: .95rem; }
+        .steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+        .steps li { position: relative; padding: 4px 0 4px 46px; counter-increment: step; }
+        .steps li + li { margin-top: 10px; }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #14171f;
+            background: var(--accent);
+            font-weight: 700;
+        }
+        a { color: var(--accent-2); }
+        a:focus-visible, .btn:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+        footer { padding: 0 20px 32px; text-align: center; color: var(--muted); font-size: .92rem; }
+        @media (max-width: 600px) {
+            header { padding: 48px 16px 56px; }
+            .app-icon { width: 104px; height: 104px; border-radius: 24px; }
+            .card { padding: 22px 18px; }
+            main { width: calc(100% - 32px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .btn { transition: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <img class="app-icon" src="images/icon.webp" width="256" height="256" alt="Siegeweave: Tower Tactics app icon">
+            <h1>Siegeweave: Tower Tactics</h1>
+            <p>Wall the road. Send your squads. Capture the towers. A cozy maze tower defense and siege strategy game.</p>
+            <ul class="tags"><li>Strategy</li><li>Tower defense</li><li>Casual</li><li>Offline</li><li>Single player</li></ul>
+            <span class="btn btn-soon" aria-disabled="true">Coming soon to Google Play</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="card" aria-labelledby="about">
+            <h2 id="about">About the Game</h2>
+            <p>Tiny toy armies fight across a handcrafted felt board. Every battle lasts about 3 minutes, plays with one hand and works offline.</p>
+            <p>Bend the enemy&#x27;s path with palisades, send squads to capture neutral towers, and crack the rival Core before the clock runs out.</p>
+        </section>
+
+        <section class="card" aria-labelledby="screens">
+            <h2 id="screens">Screenshots</h2>
+            <div class="gallery">
+            <img src="images/screenshot_1.webp" width="540" height="960" loading="lazy" alt="Bend their path">
+            <img src="images/screenshot_2.webp" width="540" height="960" loading="lazy" alt="Capture the towers">
+            <img src="images/screenshot_3.webp" width="540" height="960" loading="lazy" alt="Command your army">
+            <img src="images/screenshot_4.webp" width="540" height="960" loading="lazy" alt="Build your defense">
+            <img src="images/screenshot_5.webp" width="540" height="960" loading="lazy" alt="Easy to learn">
+            <img src="images/screenshot_6.webp" width="540" height="960" loading="lazy" alt="Outsmart the rival">
+            <img src="images/screenshot_7.webp" width="540" height="960" loading="lazy" alt="Earn 3 stars">
+            <img src="images/screenshot_8.webp" width="540" height="960" loading="lazy" alt="10 handcrafted battles">
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="features">
+            <h2 id="features">Features</h2>
+            <div class="features">
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🧵</span><div><h3>Bend their path</h3><p>Drag a chain of palisades so enemy squads walk the long way round.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🚩</span><div><h3>Capture the towers</h3><p>Take neutral towers, spread your colors and build up your army.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">⚔</span><div><h3>Command in one tap</h3><p>Choose a tower, tap a target and your squad marches.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🛠</span><div><h3>Build your defense</h3><p>Ballistas, Blast Cannons, palisades and Rally to call your troops.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🎲</span><div><h3>10 handcrafted battles</h3><p>Earn up to 3 stars per level and collect badges to decorate your board.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🌏</span><div><h3>5 languages</h3><p>English, Tiếng Việt, Deutsch, Español and Português (Brasil).</p></div></div>
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="how">
+            <h2 id="how">How to Play</h2>
+            <ol class="steps">
+                <li>Tap one of your towers, then tap a target to send a squad.</li>
+                <li>Drag palisades on the road to make enemy squads take the long way round.</li>
+                <li>Capture towers and break the enemy Core before the clock runs out.</li>
+            </ol>
+        </section>
+
+        <section class="card" aria-labelledby="contact">
+            <h2 id="contact">Support &amp; Contact</h2>
+            <p>Questions, feedback or ideas? We would love to hear from you.</p>
+            <p>Email: <a href="mailto:omagicstudio.official@gmail.com">omagicstudio.official@gmail.com</a></p>
+        </section>
+
+        <section class="card" aria-labelledby="privacy">
+            <h2 id="privacy">Privacy Policy</h2>
+            <p>Learn how this app handles data by reading our Privacy Policy.</p>
+            <p><a href="https://omagic-studio.github.io/Siegeweave/privacy-policy.html" target="_blank" rel="noopener noreferrer">View Privacy Policy →</a></p>
+        </section>
+    </main>
+
+    <footer>&copy; 2026 Omagic Studio. All rights reserved. · <a href="https://omagic-studio.github.io/Siegeweave/privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></footer>
+</body>
+</html>
