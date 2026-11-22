@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sneak past sleepy cats, sprinkle sleep dust and escape! A cozy cat and mouse stealth puzzle with 300 levels.">
+    <meta name="keywords" content="Hush Mouse, cat and mouse, hide and seek, stealth puzzle, mouse escape, cozy, puzzle game, Omagic Studio">
+    <meta name="author" content="Omagic Studio">
+    <meta name="theme-color" content="#0f1226">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Hush Mouse: Cat &amp; Mouse Escape">
+    <meta property="og:description" content="Sneak past sleepy cats, sprinkle sleep dust and escape! A cozy cat and mouse stealth puzzle with 300 levels.">
+    <meta property="og:url" content="https://omagic-studio.github.io/HushMouse/">
+    <meta property="og:image" content="https://omagic-studio.github.io/HushMouse/images/banner.webp">
+    <link rel="icon" href="images/icon.webp" type="image/webp">
+    <title>Hush Mouse: Cat &amp; Mouse Escape | Omagic Studio</title>
+    <style>
+        :root {
+            --bg: #0f1226;
+            --card: #1a1e3a;
+            --line: #343a66;
+            --accent: #f5c451;
+            --accent-2: #f7dc9a;
+            --text: #fbf6ea;
+            --muted: #d6d8ec;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+        header {
+            position: relative;
+            overflow: hidden;
+            padding: 64px 20px 72px;
+            text-align: center;
+            background: linear-gradient(135deg, #0f1226 0%, #2a2f6b 55%, #8f86c9 140%);
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("images/banner.webp") center / cover no-repeat;
+            filter: blur(14px) saturate(1.2);
+            transform: scale(1.15);
+            opacity: .45;
+        }
+        header::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 40%, var(--bg) 100%);
+        }
+        .hero { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        .app-icon {
+            width: 128px;
+            height: 128px;
+            border-radius: 28px;
+            box-shadow: 0 14px 40px rgba(0,0,0,.45);
+        }
+        header h1 { margin: 22px auto 10px; font-size: clamp(2.1rem, 6vw, 3.4rem); line-height: 1.15; text-shadow: 0 3px 16px rgba(0,0,0,.4); }
+        header p { max-width: 680px; margin: 0 auto; font-size: 1.15rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.45); }
+        .tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
+        .tags li {
+            padding: 4px 14px;
+            border: 1px solid rgba(255,255,255,.35);
+            border-radius: 999px;
+            background: rgba(0,0,0,.25);
+            font-size: .85rem;
+            font-weight: 600;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 14px 26px;
+            border-radius: 12px;
+            color: #0f1226;
+            background: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,.35);
+            transition: transform .15s ease, filter .15s ease;
+        }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-soon { color: var(--text); background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.4); box-shadow: none; cursor: default; }
+        .btn-soon:hover { transform: none; filter: none; }
+        main { width: min(100% - 32px, 980px); margin: 8px auto 50px; }
+        .card {
+            margin: 20px 0;
+            padding: 26px 30px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--card);
+        }
+        h2 { margin: 0 0 14px; color: var(--accent); font-size: 1.45rem; }
+        p { margin: 0 0 12px; }
+        p:last-child { margin-bottom: 0; }
+        .gallery {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: min(46%, 240px);
+            gap: 14px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scroll-snap-type: x mandatory;
+            scrollbar-color: var(--line) transparent;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            scroll-snap-align: start;
+        }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+        .feature {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid var(--line);
+        }
+        .feature-icon {
+            flex: 0 0 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(255,255,255,.08);
+            font-size: 1.4rem;
+        }
+        .feature h3 { margin: 0 0 4px; font-size: 1.02rem; color: var(--accent-2); }
+        .feature p { margin: 0; color: var(--muted); font-size: .95rem; }
+        .steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+        .steps li { position: relative; padding: 4px 0 4px 46px; counter-increment: step; }
+        .steps li + li { margin-top: 10px; }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #0f1226;
+            background: var(--accent);
+            font-weight: 700;
+        }
+        a { color: var(--accent-2); }
+        a:focus-visible, .btn:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+        footer { padding: 0 20px 32px; text-align: center; color: var(--muted); font-size: .92rem; }
+        @media (max-width: 600px) {
+            header { padding: 48px 16px 56px; }
+            .app-icon { width: 104px; height: 104px; border-radius: 24px; }
+            .card { padding: 22px 18px; }
+            main { width: calc(100% - 32px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .btn { transition: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <img class="app-icon" src="images/icon.webp" width="256" height="256" alt="Hush Mouse app icon">
+            <h1>Hush Mouse</h1>
+            <p>Sneak past sleepy cats, sprinkle sleep dust and escape! A cozy cat and mouse stealth puzzle with 300 levels.</p>
+            <ul class="tags"><li>Puzzle</li><li>Stealth</li><li>Casual</li><li>Single player</li></ul>
+            <span class="btn btn-soon" aria-disabled="true">Coming soon to Google Play</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="card" aria-labelledby="about">
+            <h2 id="about">About the Game</h2>
+            <p>Shh... The cats of the Cat Castle are on guard tonight. Tiptoe through the shadows, creep up behind each cat and sprinkle a pinch of sleep dust. Yawn... zzz!</p>
+            <p>Hush Mouse is a cozy cat and mouse stealth puzzle you play with one thumb: a game of hide and seek in a castle full of cat guards. Nobody gets hurt. Cats only ever fall asleep, and if you are caught, a teacup drops over you.</p>
+        </section>
+
+        <section class="card" aria-labelledby="screens">
+            <h2 id="screens">Screenshots</h2>
+            <div class="gallery">
+            <img src="images/screenshot_1.webp" width="540" height="960" loading="lazy" alt="Sneak up behind cats and sprinkle sleep dust">
+            <img src="images/screenshot_2.webp" width="540" height="960" loading="lazy" alt="Stay in the dark. Candles give you away">
+            <img src="images/screenshot_3.webp" width="540" height="960" loading="lazy" alt="Throw yarn to send guards the wrong way">
+            <img src="images/screenshot_4.webp" width="540" height="960" loading="lazy" alt="Dive into a mouse hole and pop out of its twin">
+            <img src="images/screenshot_5.webp" width="540" height="960" loading="lazy" alt="Lull the King Cat to sleep">
+            <img src="images/screenshot_6.webp" width="540" height="960" loading="lazy" alt="300 levels across 5 castle zones">
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="features">
+            <h2 id="features">Features</h2>
+            <div class="features">
+            <div class="feature"><span class="feature-icon" aria-hidden="true">😴</span><div><h3>Sprinkle sleep dust</h3><p>Creep up behind each cat and sprinkle a pinch of sleep dust. Nobody gets hurt: cats only ever fall asleep.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🕯️</span><div><h3>Stay in the dark</h3><p>Every cat has a vision cone. Blow out candles, hide under teacups and behind stacks of books.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🧶</span><div><h3>Outsmart the guards</h3><p>Throw yarn balls to send guards the wrong way, or dive into a mouse hole and pop out of its twin.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🏰</span><div><h3>300 levels, 5 zones</h3><p>Kitchen Pantry, Library, Night Garden, Snowy Attic and Throne Hall, with King Cat boss levels.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🐱</span><div><h3>Know your cats</h3><p>Guards, patrol cats, hawk eyes, wide eyes, and playful kittens that squeal if they spot you.</p></div></div>
+            <div class="feature"><span class="feature-icon" aria-hidden="true">🌍</span><div><h3>2 languages</h3><p>English and Tiếng Việt, in a handmade paper world lit by candlelight.</p></div></div>
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="how">
+            <h2 id="how">How to Play</h2>
+            <ol class="steps">
+                <li>Drag below the map to move the mouse. Watch each cat&#x27;s vision cone and slip past behind it.</li>
+                <li>Creep up behind a cat and sprinkle sleep dust to put it to sleep.</li>
+                <li>Complete the level&#x27;s mission: put every cat to sleep, grab the cheese and escape, or free a friend from a mousetrap.</li>
+            </ol>
+        </section>
+
+        <section class="card" aria-labelledby="contact">
+            <h2 id="contact">Support &amp; Contact</h2>
+            <p>Questions, feedback or ideas? We would love to hear from you.</p>
+            <p>Email: <a href="mailto:omagicstudio.official@gmail.com">omagicstudio.official@gmail.com</a></p>
+        </section>
+
+        <section class="card" aria-labelledby="privacy">
+            <h2 id="privacy">Privacy Policy</h2>
+            <p>Learn how this app handles data by reading our Privacy Policy.</p>
+            <p><a href="https://omagic-studio.github.io/HushMouse/privacy-policy.html" target="_blank" rel="noopener noreferrer">View Privacy Policy →</a></p>
+        </section>
+    </main>
+
+    <footer>&copy; 2026 Omagic Studio. All rights reserved. · <a href="https://omagic-studio.github.io/HushMouse/privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></footer>
+</body>
+</html>
